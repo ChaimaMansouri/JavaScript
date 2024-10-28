@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Événements JavaScript HTML DOM</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        hr {
+            border: 1px solid #333;
+        }
+        .example {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        button, input {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Événements JavaScript HTML DOM</h1>
+    <hr>
+    <p>onclick</p>
+    <div class="example">
+        <button onclick="alert('Button clicked!')">Click Me</button>
+    </div>
+    
+    <p>onload</p>
+    <div class="example">
+        <p id="onloadExample">Page Loaded</p>
+    </div>
+
+    <p>oninput</p>
+    <div class="example">
+        <input type="text" oninput="showInputValue(this.value)" placeholder="Type something...">
+        <p id="inputValue"></p>
+    </div>
+
+    <p>onchange</p>
+    <div class="example">
+        <select onchange="showSelectedValue(this.value)">
+            <option value="">Select an option...</option>
+            <option value="Option 1">Option 1</option>
+            <option value="Option 2">Option 2</option>
+        </select>
+        <p id="selectedValue"></p>
+    </div>
+
+    <p>onmouseover</p>
+    <div class="example" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)" style="width: 100px; height: 100px; background-color: lightblue;"></div>
+    
+    <p>onmouseout</p>
+    <div class="example">
+        <p id="mouseEvent"></p>
+    </div>
+    
+    <p>onmousedown</p>
+    <div class="example">
+        <button onmousedown="mouseDown(this)" onmouseup="mouseUp(this)">Hold me</button>
+    </div>
+    
+    <p>onmouseup</p>
+    <hr>
+
+    <h1>JavaScript HTML DOM EventListener</h1>
+    <p>addEventListener()</p>
+    <div class="example">
+        <p id="myP">Click me to change my color.</p>
+        <button onclick="addClickEventListener()">Add Click Event Listener</button>
+        <button onclick="removeClickEventListener()">Remove Click Event Listener</button>
+    </div>
+    
+    <p>exemple: document.getElementById("myP").addEventListener("click", myFunction);</p>
+    <p>mode: click, mouseover, mouseout</p>
+    <p>removeEventListener()</p>
+
+    <script>
+        // onload event
+        window.onload = function() {
+            document.getElementById("onloadExample").textContent = "Page has fully loaded.";
+        };
+
+        // oninput event
+        function showInputValue(value) {
+            document.getElementById("inputValue").textContent = "You typed: " + value;
+        }
+
+        // onchange event
+        function showSelectedValue(value) {
+            document.getElementById("selectedValue").textContent = "You selected: " + value;
+        }
+
+        // onmouseover and onmouseout events
+        function mouseOver(element) {
+            element.style.backgroundColor = "yellow";
+            document.getElementById("mouseEvent").textContent = "Mouse over the box.";
+        }
+        
+        function mouseOut(element) {
+            element.style.backgroundColor = "lightblue";
+            document.getElementById("mouseEvent").textContent = "";
+        }
+
+        // onmousedown and onmouseup events
+        function mouseDown(element) {
+            element.style.backgroundColor = "red";
+            element.textContent = "Hold on!";
+        }
+
+        function mouseUp(element) {
+            element.style.backgroundColor = "";
+            element.textContent = "Hold me";
+        }
+
+        // addEventListener and removeEventListener
+        function changeColor() {
+            document.getElementById("myP").style.color = "blue";
+        }
+
+        function addClickEventListener() {
+            document.getElementById("myP").addEventListener("click", changeColor);
+        }
+
+        function removeClickEventListener() {
+            document.getElementById("myP").removeEventListener("click", changeColor);
+        }
+    </script>
+</body>
+</html>

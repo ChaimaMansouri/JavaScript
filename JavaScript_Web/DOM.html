@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document JavaScript HTML DOM</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        hr {
+            border: 1px solid #333;
+        }
+        .example {
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Document JavaScript HTML DOM</h1>
+
+    <h1>Recherche d’éléments HTML</h1>
+    <hr>
+    <p>document.getElementById(id)</p>
+    <div class="example">
+        <p id="example1">Exemple d'élément avec ID "example1"</p>
+        <button onclick="document.getElementById('example1').style.color = 'red';">Change Color</button>
+    </div>
+    
+    <p>document.getElementsByTagName(name)</p>
+    <div class="example">
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+        <button onclick="document.getElementsByTagName('p')[0].style.color = 'blue';">Change First Paragraph Color</button>
+    </div>
+    
+    <p>document.getElementsByClassName(name)</p>
+    <div class="example">
+        <p class="example2">Class example2 - Paragraph 1</p>
+        <p class="example2">Class example2 - Paragraph 2</p>
+        <button onclick="document.getElementsByClassName('example2')[0].style.color = 'green';">Change First Class Element Color</button>
+    </div>
+    <hr>
+
+    <h1>Ajout et suppression d’éléments</h1>
+    <p>document.createElement(element)</p>
+    <div class="example">
+        <button onclick="addElement()">Add Element</button>
+    </div>
+
+    <p>document.removeChild(element)</p>
+    <div class="example" id="removeExample">
+        <p>Element to be removed</p>
+        <button onclick="removeElement()">Remove Element</button>
+    </div>
+
+    <p>document.appendChild(element)</p>
+    <div class="example" id="appendExample">
+        <button onclick="appendElement()">Append Element</button>
+    </div>
+
+    <p>document.replaceChild(new, old)</p>
+    <div class="example" id="replaceExample">
+        <p id="oldElement">Old Element</p>
+        <button onclick="replaceElement()">Replace Element</button>
+    </div>
+
+    <p>document.insertBefore(new, old)</p>
+    <div class="example" id="insertBeforeExample">
+        <p id="referenceElement">Reference Element</p>
+        <button onclick="insertBeforeElement()">Insert Before Element</button>
+    </div>
+    <hr>
+
+    <h1>Modification d’éléments</h1>
+    <p>element.innerHTML = new html content</p>
+    <div class="example" id="innerHTMLExample">
+        <p>Old Content</p>
+        <button onclick="modifyInnerHTML()">Change Content</button>
+    </div>
+
+    <p>element.attribute = new value</p>
+    <div class="example">
+        <img id="imageExample" src="https://via.placeholder.com/150" alt="Placeholder Image">
+        <button onclick="changeAttribute()">Change Image</button>
+    </div>
+
+    <p>element.style.property = new style</p>
+    <div class="example">
+        <p id="styleExample">Style me!</p>
+        <button onclick="changeStyle()">Change Style</button>
+    </div>
+
+    <p>element.setAttribute(attribute, value)</p>
+    <div class="example">
+        <a id="linkExample" href="https://www.example.com">Visit Example</a>
+        <button onclick="setAttribute()">Change Link</button>
+    </div>
+    <hr>
+
+    <h1>Recherche d’objets HTML</h1>
+    <p>document.querySelector(css)</p>
+    <div class="example">
+        <p class="query">Query Selector Example</p>
+        <button onclick="querySelectorExample()">Change Color</button>
+    </div>
+
+    <p>document.querySelectorAll(css)</p>
+    <div class="example">
+        <p class="queryAll">Query Selector All Example 1</p>
+        <p class="queryAll">Query Selector All Example 2</p>
+        <button onclick="querySelectorAllExample()">Change All Colors</button>
+    </div>
+
+    <p>document.anchors</p>
+    <div class="example">
+        <a href="#" name="anchor1">Anchor 1</a>
+        <a href="#" name="anchor2">Anchor 2</a>
+        <button onclick="showAnchors()">Show Anchors</button>
+    </div>
+
+    <p>document.applets</p>
+    <div class="example">
+        <p>Applets are largely deprecated and not commonly used in modern web development.</p>
+    </div>
+
+    <p>document.forms</p>
+    <div class="example">
+        <form id="formExample">
+            <input type="text" name="input1" placeholder="Input 1">
+            <input type="text" name="input2" placeholder="Input 2">
+        </form>
+        <button onclick="showForms()">Show Form Inputs</button>
+    </div>
+
+    <p>document.images</p>
+    <div class="example">
+        <img src="https://via.placeholder.com/150" alt="Image 1">
+        <img src="https://via.placeholder.com/150" alt="Image 2">
+        <button onclick="showImages()">Show Images</button>
+    </div>
+
+    <p>document.links</p>
+    <div class="example">
+        <a href="https://www.example.com">Example 1</a>
+        <a href="https://www.example.com">Example 2</a>
+        <button onclick="showLinks()">Show Links</button>
+    </div>
+    <hr>
+
+    <script>
+        // Ajouter un élément
+        function addElement() {
+            let newElement = document.createElement("p");
+            newElement.textContent = "New Element Added";
+            document.body.appendChild(newElement);
+        }
+
+        // Supprimer un élément
+        function removeElement() {
+            let elementToRemove = document.getElementById("removeExample").children[0];
+            document.getElementById("removeExample").removeChild(elementToRemove);
+        }
+
+        // Ajouter un enfant
+        function appendElement() {
+            let newElement = document.createElement("p");
+            newElement.textContent = "Appended Element";
+            document.getElementById("appendExample").appendChild(newElement);
+        }
+
+        // Remplacer un élément
+        function replaceElement() {
+            let newElement = document.createElement("p");
+            newElement.textContent = "New Element";
+            let oldElement = document.getElementById("oldElement");
+            document.getElementById("replaceExample").replaceChild(newElement, oldElement);
+        }
+
+        // Insérer un élément avant un autre
+        function insertBeforeElement() {
+            let newElement = document.createElement("p");
+            newElement.textContent = "Inserted Before";
+            let referenceElement = document.getElementById("referenceElement");
+            document.getElementById("insertBeforeExample").insertBefore(newElement, referenceElement);
+        }
+
+        // Modifier innerHTML
+        function modifyInnerHTML() {
+            document.getElementById("innerHTMLExample").innerHTML = "<p>New Content</p>";
+        }
+
+        // Changer un attribut
+        function changeAttribute() {
+            document.getElementById("imageExample").src = "https://via.placeholder.com/300";
+        }
+
+        // Changer le style
+        function changeStyle() {
+            document.getElementById("styleExample").style.color = "purple";
+            document.getElementById("styleExample").style.fontSize = "24px";
+        }
+
+        // Définir un attribut
+        function setAttribute() {
+            document.getElementById("linkExample").setAttribute("href", "https://www.google.com");
+        }
+
+        // Query selector
+        function querySelectorExample() {
+            document.querySelector(".query").style.color = "orange";
+        }
+
+        // Query selector all
+        function querySelectorAllExample() {
+            let elements = document.querySelectorAll(".queryAll");
+            elements.forEach(element => {
+                element.style.color = "brown";
+            });
+        }
+
+        // Afficher les ancres
+        function showAnchors() {
+            let anchors = document.anchors;
+            let anchorList = "Anchors: ";
+            for (let i = 0; i < anchors.length; i++) {
+                anchorList += anchors[i].name + " ";
+            }
+            alert(anchorList);
+        }
+
+        // Afficher les formulaires
+        function showForms() {
+            let forms = document.forms;
+            let formInputs = "Form Inputs: ";
+            for (let i = 0; i < forms.length; i++) {
+                let inputs = forms[i].elements;
+                for (let j = 0; j < inputs.length; j++) {
+                    formInputs += inputs[j].name + " ";
+                }
+            }
+            alert(formInputs);
+        }
+
+        // Afficher les images
+        function showImages() {
+            let images = document.images;
+            let imageList = "Images: ";
+            for (let i = 0; i < images.length; i++) {
+                imageList += images[i].alt + " ";
+            }
+            alert(imageList);
+        }
+
+        // Afficher les liens
+        function showLinks() {
+            let links = document.links;
+            let linkList = "Links: ";
+            for (let i = 0; i < links.length; i++) {
+                linkList += links[i].href + " ";
+            }
+            alert(linkList);
+        }
+    </script>
+</body>
+</html>
